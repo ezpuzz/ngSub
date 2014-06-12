@@ -1,0 +1,145 @@
+<form role="form" class="row">
+	<fieldset class="col-md-3">
+
+		<legend>Server Credentials</legend>
+
+		<div class="form-group">
+			<label for="Username" class="control-label">Username</label>
+			<input type="text" id="Username" class="form-control" ng-model="settings.Username" />
+		</div>
+
+		<div class="form-group">
+			<label for="Password">Password</label>
+			<input id="Password" type="password" class="form-control" ng-model="settings.Password" autocomplete="off"/>
+		</div>
+
+		<div class="form-group">
+			<label for="Server">Server <span class="red">*</span> (<a href="" title="Connect to Demo Subsonic Server" ng-click="setupDemo()">Demo</a>)</label>
+			<input type="url" class="form-control" title="Subsonic Server URL Ex: http://host:port/subsonic" ng-model="settings.Server" />
+		</div>
+
+		<label class="control-label">Subsonic API:
+		</label>
+		<span class="form-control-static">{{settings.ApiVersion}}</span>
+
+	</fieldset>
+
+	<fieldset class="col-md-3">
+		<legend>Options</legend>
+
+		<div class="form-group">
+			<label for="Theme">Theme</label>
+			<select id="Theme" name="Theme" class="form-control" ng-model="settings.Theme" ng-options="o for o in Themes"></select>
+		</div>
+
+		<div class="form-group">
+			<label for="AutoAlbumSize">Auto Album Size</label>
+			<input type="number" class="form-control" title="Number of Albums to Get on the Music Library tab" ng-model="settings.AutoAlbumSize" />
+		</div>
+
+		<div class="form-group">
+			<label for="AutoPlaylistSize">Auto Playlist Size</label>
+			<input type="number" class="form-control" title="Number of Songs to Get on the Playlist tab" ng-model="settings.AutoPlaylistSize" />
+		</div>
+
+		<label for="ApplicationName">Application Name</label>
+
+		<input type="text" id="ApplicationName" name="ApplicationName" class="form-control" title="Custom Player Name" ng-model="settings.ApplicationName" />
+	</fieldset>
+
+	<fieldset class="col-md-3">
+
+		<legend>General</legend>
+
+		<div class="checkbox">
+			<label for="AutoPlay">
+				<input type="checkbox" id="AutoPlay" name="AutoPlay" value="1" title="When the Queue has ended, load random songs" ng-model="settings.AutoPlay" />Auto Play
+			</label>
+		</div>
+
+		<div class="checkbox">
+			<label for="LoopQueue">
+				<input type="checkbox" id="LoopQueue" name="LoopQueue" value="1" title="When the Queue has ended, start from beginning" ng-model="settings.LoopQueue" />Loop Queue
+			</label>
+		</div>
+
+		<div class="checkbox">
+			<label for="HideAZ">
+				<input type="checkbox" id="HideAZ" name="HideAZ" value="1" title="Hide A-Z Artist Picker (Tablet/Touch friendly feature)" ng-model="settings.HideAZ" />Hide A-Z
+			</label>
+		</div>
+
+		<div class="checkbox">
+			<label for="ScrollTitle">
+				<input type="checkbox" id="ScrollTitle" name="ScrollTitle" value="1" title="Scroll the Title Once" ng-model="settings.ScrollTitle" />Scroll Title
+			</label>
+		</div>
+
+		<label for="DefaultLibraryLayout">Default Library Layout</label>
+		<select id="DefaultLibraryLayout" name="DefaultLibraryLayout" ng-model="settings.DefaultLibraryLayout" ng-options="o as o.name for o in Layouts" title="Library Layout"></select>
+
+			<legend>HTML5 [Beta]</legend>
+
+			<h5>Notifications</h5>
+
+			<div class="checkbox">
+			<label for="NotificationSong">
+			<input type="checkbox" id="NotificationSong" name="NotificationSong" value="1" title="Enable Notifications When Tracks Change" ng-model="settings.NotificationSong" />
+			Song Change</label>
+			</div>
+
+			<div class="checkbox">
+				<label for="NotificationNowPlaying">
+				<input type="checkbox" id="NotificationNowPlaying" name="NotificationNowPlaying" value="1" title="Enable Notifications When Other Users Play Songs" ng-model="settings.NotificationNowPlaying" />
+				Now Playing</label>
+			</div>
+
+			<span>Local Storage</span>
+
+			<div class="checkbox">
+				<label for="SaveTrackPosition">
+				<input type="checkbox" id="SaveTrackPosition" name="SaveTrackPosition" value="1" title="Saves Play Queue & Track Position Periodically (Uses HTML5: localStorage)" ng-model="settings.SaveTrackPosition" />
+				Save Progress</label>
+			</div>
+
+			<legend>Advanced</legend>
+
+			<div class="checkbox">
+				<label for="Debug">
+					<input type="checkbox" id="Debug" name="Debug" value="1" title="Enable Debug Mode (Events will be logged to the Javascript Console)" ng-model="settings.Debug" />
+					Debug Mode</label>
+			</div>
+
+			<div class="checkbox">
+				<label for="ForceFlash">
+					<input type="checkbox" id="ForceFlash" name="ForceFlash" value="1" title="Force Flash Plugin for Audio (Option doesn't work with Chrome App)" ng-model="settings.ForceFlash" />
+					Force Flash</label>
+			</div>
+
+			<label for="Timeout">Timeout</label>
+			<select id="Timeout" name="Timeout" class="" ng-model="settings.Timeout" ng-options="o.id as o.name for o in Timeouts" title="AJAX Request Timeout (Seconds)"></select>
+			<br>
+
+			<label for="NotificationTimeout">Notification Timeout</label>
+			<select id="NotificationTimeout" name="NotificationTimeout" class="" ng-model="settings.NotificationTimeout" ng-options="o.id as o.name for o in Timeouts" title="Notification Timeout (Seconds)"></select>
+
+		</fieldset>
+
+</form>
+
+<div class="col-xs-12">
+	<h3 class="title">Tips</h3>
+	<h3 class="title">Keyboard Shortcuts</h3>
+
+	<ul class="preferences">
+		<!--<li><em>[1-6]</em> Switch to corresponding tab</li>-->
+		<li><em>[a-z]</em> Use to Quickly Browse to an Artist</li>
+		<li><em>Home</em> Scroll to Top of Artist List</li>
+		<li><em>Spacebar</em> Play/Pause</li>
+		<li><em>&rarr;</em> Next Track</li>
+		<li><em>&larr;</em> Previous Track</li>
+		<li><em>-/_</em> Volume Down <em>=/+</em> Volume Up</li>
+		<li><em>Media Keys</em> via <a href="https://chrome.google.com/webstore/detail/swayfm-unified-music-medi/icckhjgjjompfgoiidainoapgjepncej" target="_blank">Sway.fm Unified Music Media Keys</a>
+		</li>
+	</ul>
+</div>

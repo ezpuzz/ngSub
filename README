@@ -1,0 +1,23 @@
+ngSub - Responsive HTML5 AngularJS Subsonic Client
+=====
+
+Originally a fork of the wonderful [Jamstash](https://github.com/tsquillario/Jamstash), ngSub aims to be more compatible with a variety of devices with a strict focus on operability with Subsonic compatible APIs.
+
+Goals
+* Create a browser or mobile listening experience indistinguishable from desktop
+
+Features
+* Playlist Management
+* Starred Albums & Songs
+* Last.fm support
+* Persistent state between sessions
+* Keyboard shortcuts
+
+You will need a Subsonic server to be able to play your own music.
+* https://github.com/Mach5/supersonic
+* https://github.com/ezpuzz/supysonic
+* http://www.subsonic.org/pages/download.jsp
+
+License: GNU General Public License version 2 (GPLv2)
+
+Jamstash Github Repo: https://github.com/tsquillario/Jamstash

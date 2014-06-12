@@ -1,0 +1,53 @@
+<div ng-controller="PlayerCtrl" id="PlayerWrapper" >
+	<!-- Audio Player -->
+	<div id="PlayerControls" class="col-md-4 col-sm-6 col-xs-12">
+		<div class="btn-group btn-group-lg">
+			<button type="button" class="btn btn-primary" id="PreviousTrack" title="Previous Track" ng-click="previousTrack()">
+				<span class="glyphicon glyphicon-step-backward"></span>
+			</button>
+			<button type="button" class="btn btn-primary" id="PlayTrack" title="Play/Pause" ng-click="playPauseSong()">
+				<span class="glyphicon" ng-class="(!player.media.paused) ? 'glyphicon-pause' : 'glyphicon-play'"></span>
+			</button>
+			<button type="button" class="btn btn-primary" id="NextTrack" title="Next Track" ng-click="nextTrack()">
+				<span class="glyphicon glyphicon-step-forward"></span>
+			</button>
+		</div>
+		<div class="btn-group btn-group-lg">
+			<a class="btn btn-default" title="Repeat" ng-click="toggleSetting('Repeat')" ng-class="{'hoverSelected': !settings.Repeat }"><span class="glyphicon glyphicon-repeat"></span></a>
+
+			<a class="btn btn-default" title="Favorite"><span class="glyphicon" ng-class="{'glyphicon-star': playingSong.starred, 'glyphicon-star-empty': !playingSong.starred}" ng-click="updateFavorite(playingSong)" stop-event="click"></span></a>
+		</div>
+	</div>
+
+	<div class="col-md-5 col-sm-6 col-xs-12">
+
+		<div class="nowplaying">
+
+			<span class="h5 song" ng-bind="playingSong.name"></span>
+			<small class="by text-muted">by</small>
+			<span class="artist" ng-bind="playingSong.artist"></span>
+			<br/>
+			<small class="on text-muted">on</small>
+			<span class="album" ng-bind="playingSong.album"></span>
+			<br/>
+			<span class="specs" ng-bind-html="specs"></span>
+
+			<div id="elapsed">
+			<small id="currentTime"></small>/<span class="duration">{{playingSong.time}}</span>
+			</div>
+		</div>
+
+		<!-- Empty audio element that is filled dynamically -->
+		<audio id="audiojs" src="#" type="audio/mpeg">
+			<object width="0" height="0" type="application/x-silverlight-2" data="silverlightmediaelement.xap">
+				<param name="movie" value="silverlightmediaelement.xap" />
+			</object>
+		</audio>
+
+	</div>
+
+	<div class="col-md-3 col-xs-12" id="progress" ng-click="seek($event)">
+		<div id="progress_completed"></div>
+	</div>
+</div>
+<div class="clearfix"></div>

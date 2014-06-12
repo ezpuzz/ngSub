@@ -1,0 +1,76 @@
+
+<div id="SubsonicIndex" class="col-md-3">
+
+
+	<div id="FolderControls" class="row">
+		<div class="col-xs-7">
+			<select id="MusicFolders" class="form-control" ng-model="SelectedMusicFolder" ng-options="o as o.name for o in MusicFolders">
+				<option value="">All Folders</option>
+			</select>
+		</div>
+
+		<div class="col-xs-3">
+			<button class="btn btn-default" type="button" id="action_RefreshArtists" title="Refresh Artists" ng-click="refreshArtists()">
+				<span class="glyphicon glyphicon-refresh"></span>
+			</button>
+		</div>
+
+		<div class="col-xs-2">
+			<div id="AZIndex" ng-show="!settings.HideAZ" class="subactionsfixed">
+				<a href="" ng-click="toggleAZ()" stop-event="click">A-Z</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="AutoAlbums">
+		<h4>Auto Albums</h4>
+		<ul id="AutoAlbumContainer" class="nav nav-pills nav-stacked">
+
+			<li ui-sref-active="active">
+			<a class="" ui-sref="library.recent({offset: 0})">Recently Added</a>
+			</li>
+			<li ui-sref-active="active">
+			<a class="" ui-sref="library.random()">Random</a>
+			</li>
+
+			<li ng-repeat="o in AutoAlbums" id="{{o.id}}" ng-click="getAlbumListBy(o.id)" ng-class="{'active': selectedAutoAlbum == o.id }">
+			<a class="" href>{{o.name}}</a>
+			</li>
+		</ul>
+
+	</div>
+
+	<!-- Shortcut -->
+	<!--<ul class="simplelist" ng-show="shortcut.length">-->
+		<!--<li class="index" title="Scroll to Top" data-bind="click: $root.scrollToTop"><a>Shortcuts</a></li>-->
+		<!--<ul class="simplelist" ng-repeat="o in shortcut">-->
+			<!--<li class="item" id="{{o.id}}" ng-click="getAlbums(o.id, o.name)" ng-class="{'selected': selectedArtist == o.id}"><span ng-bind="o.name"></span></li>-->
+		<!--</ul>-->
+	<!--</ul>-->
+
+	<div id="artistsList" class="row hidden-xs hidden-sm">
+		<h4>Artists</h4>
+		<!-- Artist -->
+		<img src="images/ajax-loader.gif" ng-hide="artists.length">
+		<ul class="list-unstyled" vs-repeat="20">
+			<li ng-repeat="a in artists track by a.id" class="item" ui-sref-active="selected" ><a ui-sref="library.artist({artistId: a.id})" ng-bind="a.name"></a></li>
+		</ul>
+	</div>
+
+</div>
+
+
+<!-- Albums -->
+<div id="SubsonicResults" class="col-md-9" ui-view="albums">
+</div>
+
+</div>
+
+<div id="playerPush"></div>
+
+<div id="submenu_AZIndex" class="submenu shadow" style="display: none;">
+	<ul>
+		<li ng-repeat="o in index"><a href="" ng-click="scrollToIndexName(o.name)">{{o.name}}</a></li>
+		<li><a href="" class="close" ng-click="scrollToIndexName('AZIndex')">[Top]</a></li>
+		<li><a href="" class="close" ng-click="toggleAZ()">[Close]</a></li>
+	</ul>

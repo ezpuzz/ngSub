@@ -1,0 +1,88 @@
+{
+  "name": "ngSub",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ezpuzz/ngSub",
+  "authors": [
+    "Emory P. <emory@onlyfor.us>"
+  ],
+  "description": "Subsonic Music Server HTML5 Frontend",
+  "main": "index.html",
+  "keywords": [
+    "Music",
+    "Streaming",
+    "HTML5",
+    "Subsonic",
+    "Client",
+    "Frontend",
+    "Angular"
+  ],
+  "license": "GPLv2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test"
+  ],
+  "dependencies": {
+    "jquery": "~1",
+    "angular": "~1.2",
+    "angular-resource": "~1.2",
+    "angular-sanitize": "~1.2",
+    "angular-ui-router": ">=0.2",
+    "angular-mousewheel": "~1",
+    "db": "WebReflection/db",
+    "fancybox": "~2",
+    "jquery.base64.js": "yckart/jquery.base64.js#~0.0.2",
+    "jquery-dateFormat": "phstc/jquery-dateFormat#~1",
+    "jquery.scrollTo": "~1",
+    "angular-vs-repeat": "kamilkp/angular-vs-repeat",
+    "bootstrap":  "",
+    "js-cover-flow": "luwes/js-cover-flow",
+    "mediaelementjs": "johndyer/mediaelement",
+    "font-awesome": ""
+  },
+  "overrides": {
+      "mediaelementjs":
+      {
+	  "main":
+	  [
+	  	"build/mediaelement-and-player.js",
+	  	"build/mediaelementplayer.css",
+	  	"build/flashmediaelement.swf",
+		"build/mejs-skins.css"
+	  ]
+      },
+      "js-cover-flow":
+      {
+	  "main": 
+	  [
+	      "coverflow.js",
+	      "coverflow.css"
+	  ]
+      },
+      "db": {
+	  "main": "build/asyncStorage.max.js"
+      },
+      "jquery.base64.js": {
+	  "main": "jquery.base64.js"
+      },
+      "jquery-dateFormat": {
+	  "main": "dist/jquery-dateFormat.js"
+      },
+      "angular-vs-repeat": {
+	  "main": "angular-vs-repeat.js"
+      },
+      "fancybox": {
+	  "main": [
+	      "source/jquery.fancybox.js",
+	      "source/jquery.fancybox.css"
+	  ]
+      },
+      "font-awesome": {
+	  "main": [
+	      "css/font-awesome.css",
+	      "fonts/"
+	  ]
+      }
+
+  }
+}

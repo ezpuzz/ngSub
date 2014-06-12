@@ -1,0 +1,48 @@
+<div id="albumHeader" class="col-xs-12">
+	<h3 class="pull-left" ng-bind="selectedAlbum.name"></h3>
+	<div class="pull-right btn-group btn-group-sm" ng-hide="!selectedAlbum.song.length">
+		<button type="button" class="btn btn-default" id="action_PlayAlbum" title="Play Album" ng-click="playAll()"><span class="glyphicon glyphicon-play"></span></button>
+		<button type="button" class="btn btn-default" id="action_SelectAll" title="Select All" ng-click="selectAll()">All</button>
+		<button type="button" class="btn btn-default" id="action_SelectNone" title="Select None" ng-click="selectNone()">None</button>
+		<button type="button" class="btn btn-default" id="action_AddToQueue" title="Add To Queue" ng-click="addSongsToQueue()">+ Queue</button>
+		<button type="button" class="btn btn-default" id="action_AddToPlaylist" title="Add Selected To Playlist" ng-click="loadPlaylistsForMenu()">+ Playlist</button>
+	</div>
+		<div id="submenu_AddToPlaylist" class="submenu shadow hidden">
+			<a href="" ng-repeat="o in playlistMenu" ng-click="addToPlaylist(o.id)">{{o.name}}</a>
+		</div>
+</div>
+
+<div class="col-xs-12">
+	<div class="songlist list-group" ng-hide="!selectedAlbum.song.length">
+		<a class="song btn-toolbar list-group-item" ng-repeat="o in selectedAlbum.song" ng-click="selectSong(o)" ng-dblclick="playSong(false, o)" ng-class="{'selected': o.selected, 'playing': o.playing}" data-bind="attr: { id: id, parentid: parentid, title: description }">
+			<div class="songcontrols btn-group btn-group-xs hidden-sm hidden-xs">
+				<button type="button" class="btn btn-default" href="" title="Add To Play Queue" ng-click="addSongToQueue(o)" stop-event="click">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+				<button type="button" class="btn btn-default" href="" title="Remove">
+					<span class="glyphicon glyphicon-minus"></span>
+				</button>
+				<button type="button" class="btn btn-default" href="" title="Play" ng-click="playSong(false, o)" stop-event="click">
+					<span class="glyphicon glyphicon-play"></span>
+				</button>
+				<button type="button" class="btn btn-default" href="" title="Download">
+					<span class="glyphicon glyphicon-download"></span>
+				</button>
+				<button type="button" class="btn btn-default" href="" title="Favorite" ng-click="updateFavorite(o)" stop-event="click">
+					<span class="glyphicon glyphicon-star"></span>
+				</button>
+			</div>
+			<span class="h5 track pull-left hidden-sm hidden-xs" ng-bind="o.track"></span>
+			<span class="h5 title pull-left">
+				{{o.name}}
+				<small class="hidden-sm hidden-xs" ng-bind="o.artist"></small>
+			</span>
+			<span class="h5 time pull-right">{{o.time}}</span>
+
+
+			<!--<a ng-href="#/library/0/{{o.albumId}}" class="albumblock" ng-show="o.album && itemType === 'pl'" stop-event="click" ng-bind="o.album" title="{{o.album}}"></a>-->
+			<!--<a ng-href="#/archive/{{o.artist}}/{{o.parentid}}" class="albumblock" ng-show="o.album && itemType === 'archive'" stop-event="click" ng-bind="o.album" title="{{o.album}}"></a>-->
+
+		</a>
+	</div>
+</div>

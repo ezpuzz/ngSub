@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="ngSub">
+
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+		<meta name="description" content="HTML5 Audio Streamer for Subsonic">
+		<meta name="keywords" content="Subsonic, HTML5 Audio, Music Streaming">
+
+		<!-- Bootstrap Initialization -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<link href="/css/app.css" rel="stylesheet">
+
+		<script>
+			window.brunch = window.brunch || {};
+			window.brunch.server = '192.168.2.12';
+			window.brunch['auto-reload'] = {
+				enabled: true
+			};
+		</script>
+
+		<script src="/js/vendor.js" type="text/javascript"></script>
+		<script src="/js/app.js" type="text/javascript"></script>
+
+		<title>ngSub</title>
+
+
+	</head>
+
+	<body ng-controller="AppCtrl">
+
+		<!-- for floating messages  -->
+		<div id="messages"></div>
+
+		<div id="content" class="container-fluid">
+			<div id="navwrap">
+				<nav class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">ngSub</a>
+					</div>
+
+					<div class="collapse navbar-collapse" id="main-navbar">
+
+						<ul class="nav navbar-nav">
+							<li ui-sref-active="active"><a ui-sref="library.recent"><span class="glyphicon glyphicon-headphones"></span><span class="visible-xs visible-sm">Library</span></a></li>
+							<li class="disabled" ui-sref-active="active"><a ui-sref="playlists"><span class="glyphicon glyphicon-list"></span></a></li>
+							<li ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+						</ul>
+
+						<form id="search" class="navbar-left navbar-form" role="search">
+							<div class="form-group">
+								<input type="search" id="Search" class="form-control" placeholder="Search..." ng-enter="search()"/>
+							</div>
+							<button class="btn btn-default" type="submit" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+						</form>
+
+
+						<p class="navbar-text navbar-right">
+						<a target="_blank" ng-show="settings.Server" ng-href="{{settings.Server}}" title="{{settings.Server}}">Server</a>
+						</p>
+					</div>
+
+				</div>
+				</nav>
+			</div>
+
+			<!-- Main -->
+			<div style="height: 90%;" class="row">
+				<div id="Main" class="col-md-10 col-sm-12">
+
+					<div id="View" ui-view="main"></div>
+					<div id="Player" ng-include="'/partials/player.html'"></div>
+
+				</div>
+
+
+				<!-- Queue (Desktop Only) -->
+				<div id="Queue" class="col-md-2 hidden-xs hidden-sm">
+
+					<div class="btn-group-center">
+						<div id="QueueActions" class="btn-group">
+							<button class="btn btn-default" title="Shuffle Queue" ng-click="queueShuffle()"><i class="fa fa-random"></i></button>
+							<button class="btn btn-default" id="action_Empty" title="Delete Queue" ng-click="queueEmpty()"><i class="fa fa-trash-o"></i></button>
+							<button class="btn btn-default" id="action_DeleteSelected" title="Delete Song(s) From Queue" ng-click="queueRemoveSelected()"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+
+					<ol id="QueueSongs" class="list-unstyled" sortable>
+						<li ng-repeat="o in queue" class="thumbnail" ng-class="{'playing': o.playing, 'selected': o.selected}" ng-click="selectSong(o)" ng-dblclick="playSong(false, o)">
+						<img err-src ng-src="{{o.coverartfull}}" src="/images/albumdefault_160.jpg" />
+						<div class="title" title="{{ o.track + ' - ' + o.name + ' - ' + o.time }}" ng-bind="o.name"></div>
+						<div class="albumtext" title="{{o.album}}" ng-bind="o.album"></div>
+						<div class="albumtext" title="{{o.artist}}" ng-bind="o.artist"></div>
+						</li>
+					</ol>
+
+					<div id="NowPlaying">
+						<div class="media">
+							<a class="pull-left" rel="coverart" ng-href="{{playingSong.coverartfull}}" title="{{playingSong.artist}} - {{playingSong.album}}" fancybox>
+								<img class="media-object" ng-src="{{playingSong.coverartthumb}}" src="/images/albumdefault_60.jpg" alt="Cover Artwork" />
+							</a>
+							<div class="media-body">
+								<h4>Now Playing</h4>
+								<span>{{playingSong.artist}}</span><br>
+								<span>{{playingSong.name}}</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="SideBar" class="hidden">
+					<div id="Chat" class="hidden">
+						<div class="header"><img src="/images/chat_alt_stroke_12x12.png" /> Chat</div>
+						<div id="ChatMsgs"></div>
+						<div class="submit">
+							<img src="/images/comment_stroke_gl_12x11.png" />
+							<input type="text" id="ChatMsg" class="chat" title="Hit [Enter] to Post" />
+						</div>
+					</div>
+				</div>
+			</div><!-- end #content -->
+		</div>
+
+	</body>
+
+</html>
