@@ -1,4 +1,4 @@
-var ngSub = angular.module('ngSub', ['ngResource', 'ngSanitize', 'ui.router', 'monospaced.mousewheel', 'vs-repeat']);
+var ngSub = angular.module('ngSub', ['ngResource', 'ngSanitize', 'ui.router', 'monospaced.mousewheel']);
 
 ngSub.config(
 	['$locationProvider', '$stateProvider', '$urlRouterProvider', '$uiViewScrollProvider',

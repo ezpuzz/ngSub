@@ -120,7 +120,6 @@ ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, glob
 
 		$scope.player.media.addEventListener('loadeddata', function(e){
 			$log.debug('loaded and set to: ' + song.position);
-			$scope.player.setCurrentTime(song.position);
 		});
 
 		if (!loadonly) {
