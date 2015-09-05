@@ -1,5 +1,6 @@
-<div id="albumsWrapper" class="row">
-	<div id="titleBar">
+<div id="albumsWrapper">
+
+	<div id="titleBar" class="row">
 
 		<div class="col-xs-12 col-md-6">
 			<h3 ng-hide="!selectedArtist.album.length">Albums<span ng-hide="!selectedArtist"> <small>{{selectedArtist.name}}</small></span></h3>
@@ -10,11 +11,9 @@
 			</select>
 		</div>
 
-		<div class="clearfix"></div>
-
 	</div>
 
-	<div id="Breadcrumbs">
+	<div id="Breadcrumbs" class="row">
 
 		<div class="col-xs-12">
 			<ol class="breadcrumb">
@@ -25,13 +24,10 @@
 			</ol>
 		</div>
 
-		<div class="clearfix"></div>
-
 	</div>
 
-	<div id="albumlist" ng-hide="!selectedArtist.album.length" ng-class="SelectedAlbumDisplay.id" inf-scroll="loadMoreAlbums()">
-
-		<div ng-if="settings.coverflow" id="coverflow"></div>
+	<div ng-if="settings.coverflow">
+		<div id="coverflow"></div>
 		<script type="text/javascript">
 			coverflow('coverflow').setup(
 			{
@@ -43,49 +39,50 @@
 				height: 240
 			});
 		</script>
+	</div>
 
-		<div ng-if="!settings.coverflow">
-			<div ng-repeat="o in selectedArtist.album" class="album col-md-3 col-xs-6">
-				<div class="thumbnail" ng-class="{'playing': o.id == playingSong.albumId}" id="{{o.id}}" parentid="{{o.parent}}">
+	<div class="row" ng-if="!settings.coverflow" id="albumlist" ng-hide="!selectedArtist.album.length" ng-class="SelectedAlbumDisplay.id" inf-scroll="loadMoreAlbums()">
 
-					<a ui-sref=".album({albumId: o.id})" stop-event="click">
+		<div ng-repeat="o in selectedArtist.album" class="album col-md-3 col-xs-6">
+			<div class="thumbnail" ng-class="{'playing': o.id == playingSong.albumId}" id="{{o.id}}" parentid="{{o.parent}}">
 
-						<img ng-src="{{o.coverartthumb}}" src="/images/albumdefault_160.jpg" err-src="/images/albumdefault_160.jpg">
-					</a>
+				<a ui-sref=".album({albumId: o.id})" stop-event="click">
 
-					<div id="albumactions" class="btn-group btn-group-xs">
+					<img ng-src="{{o.coverartthumb}}" src="/images/albumdefault_160.jpg" err-src="/images/albumdefault_160.jpg">
+				</a>
 
-						<button type="button" class="add btn btn-default" title="Add To Play Queue" ng-click="getSongs(o.id, 'add')">
-							<span class="glyphicon glyphicon-plus"></span>
-						</button>
+				<div id="albumactions" class="btn-group btn-group-xs">
 
-						<button type="button" class="play btn btn-default" title="Play" ng-click="getSongs(o.id, 'play')" ui-sref=".album({albumId: o.id})">
-							<span class="glyphicon glyphicon-play"></span>
-						</button>
+					<button type="button" class="add btn btn-default" title="Add To Play Queue" ng-click="getSongs(o.id, 'add')">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
 
-						<button type="button" class="btn btn-default" title="Favorite" ng-class="{'favorite': o.starred, 'rate': !o.starred}" ng-click="updateFavorite(o)">
-							<span class="glyphicon" ng-class="{'glyphicon-star': o.starred, 'glyphicon-star-empty': !o.starred}"></span>
-						</button>
+					<button type="button" class="play btn btn-default" title="Play" ng-click="getSongs(o.id, 'play')" ui-sref=".album({albumId: o.id})">
+						<span class="glyphicon glyphicon-play"></span>
+					</button>
 
-						<button type="button" class="download btn btn-default" ng-click="download(o.id)" title="Download">
-							<span class="glyphicon glyphicon-download"></span>
-						</button>
+					<button type="button" class="btn btn-default" title="Favorite" ng-class="{'favorite': o.starred, 'rate': !o.starred}" ng-click="updateFavorite(o)">
+						<span class="glyphicon" ng-class="{'glyphicon-star': o.starred, 'glyphicon-star-empty': !o.starred}"></span>
+					</button>
 
-						<button type="button" class="btn btn-default info hover" title="{{'Created: ' + o.date}}">
-							<span class="glyphicon glyphicon-info-sign"></span>
-						</button>
+					<button type="button" class="download btn btn-default" ng-click="download(o.id)" title="Download">
+						<span class="glyphicon glyphicon-download"></span>
+					</button>
 
-					</div>
-
-					<div class="caption" ng-class="{'bg-info': selectedAlbum.id == o.id}">
-						<span class="year label label-default" ng-bind="o.year"></span>
-						<span class="h5" title="{{o.name}}">{{o.name | addEllipsis}}</span>
-						<br/>
-						<span class="h6 artist" ng-bind="o.artist">Unknown</span>
-					</div>
-
+					<button type="button" class="btn btn-default info hover" title="{{'Created: ' + o.date}}">
+						<span class="glyphicon glyphicon-info-sign"></span>
+					</button>
 
 				</div>
+
+				<div class="caption" ng-class="{'bg-info': selectedAlbum.id == o.id}">
+					<span class="year label label-default" ng-bind="o.year"></span>
+					<span class="h5" title="{{o.name}}">{{o.name | addEllipsis}}</span>
+					<br/>
+					<span class="h6 artist" ng-bind="o.artist">Unknown</span>
+				</div>
+
+
 			</div>
 		</div>
 

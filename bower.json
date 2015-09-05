@@ -24,9 +24,9 @@
   ],
   "dependencies": {
     "jquery": "~1",
-    "angular": "~1.3",
-    "angular-resource": "~1.3",
-    "angular-sanitize": "~1.3",
+    "angular": "~1.4",
+    "angular-resource": "~1.4",
+    "angular-sanitize": "~1.4",
     "angular-ui-router": ">=0.2",
     "angular-mousewheel": "~1",
     "db": "WebReflection/db",
@@ -35,7 +35,7 @@
     "jquery-dateFormat": "phstc/jquery-dateFormat#~1",
     "jquery.scrollTo": "~1",
     "angular-vs-repeat": "kamilkp/angular-vs-repeat",
-    "bootstrap":  "",
+    "bootstrap":  "*",
     "js-cover-flow": "luwes/js-cover-flow",
     "mediaelementjs": "johndyer/mediaelement",
     "font-awesome": "latest"

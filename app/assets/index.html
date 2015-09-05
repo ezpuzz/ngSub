@@ -79,7 +79,7 @@
 			</div>
 
 			<!-- Main -->
-			<div style="height: 90%;" class="row">
+			<div id="page" class="row">
 				<div id="Main" class="col-md-10 col-sm-12">
 
 					<div id="View" ui-view="main"></div>
@@ -107,19 +107,6 @@
 						<div class="albumtext" title="{{o.artist}}" ng-bind="o.artist"></div>
 						</li>
 					</ol>
-
-					<div id="NowPlaying">
-						<div class="media">
-							<a class="pull-left" rel="coverart" ng-href="{{playingSong.coverartfull}}" title="{{playingSong.artist}} - {{playingSong.album}}" fancybox>
-								<img class="media-object" ng-src="{{playingSong.coverartthumb}}" src="/images/albumdefault_60.jpg" alt="Cover Artwork" />
-							</a>
-							<div class="media-body">
-								<h4>Now Playing</h4>
-								<span>{{playingSong.artist}}</span><br>
-								<span>{{playingSong.name}}</span>
-							</div>
-						</div>
-					</div>
 
 				</div>
 
