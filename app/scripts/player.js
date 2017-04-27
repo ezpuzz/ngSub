@@ -1,5 +1,49 @@
 ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, globals, model, notifications, $http, $log, $sce) {
 
+	$log.debug("Creating MediaElementPlayer");
+	$scope.player = new MediaElementPlayer('audiojs', {
+		startVolume: $rootScope.volume,
+		pluginPath: '/me',
+		shimScriptAccess: 'always',
+		success: function(mediaElement, domObject){
+
+			$log.debug('Adding timeupdate listener to MediaElementPlayer');
+			mediaElement.addEventListener('timeupdate', function(e){
+				$('#currentTime').html(secondsToTime(mediaElement.currentTime, true));
+				$('#progress_completed').css("width", function(){
+					return Math.floor($('#progress').width() * (mediaElement.currentTime/$rootScope.playingSong.duration));
+				});
+			});
+
+			$log.debug('Adding ended listener to MediaElementPlayer');
+			mediaElement.addEventListener('ended', function(event) {
+				if (globals.settings.Repeat) { // Repeat current track if enabled
+					mediaElement.setCurrentTime(0);
+					mediaElement.play();
+				}
+				else {
+					if (!getNextSong()) { // Action if we are at the last song in queue
+						if (globals.settings.LoopQueue) { // Loop to first track in queue if enabled
+							var next = $rootScope.queue[0];
+							$scope.playSong(false, next);
+						}
+						else if (globals.settings.AutoPlay) { // Load more tracks if enabled
+							$rootScope.getRandomSongs('play', '', '');
+							notifications.updateMessage('Auto Play Activated...', true);
+						}
+					}
+					else {
+						$scope.nextTrack();
+					}
+				}
+			});
+
+			mediaElement.addEventListener('loadeddata', function(e){
+				$log.debug('loaded and set to: ' + song.position);
+			});
+		}
+	});
+
 	$scope.$watch(function(){return globals.settings;}, function(newval){
 		$log.debug(newval);
 		if (newval) $scope.settings = newval;
@@ -77,7 +121,7 @@ ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, glob
 		if ($rootScope.playingSong) {
 
 			// save song and elapsed time
-			$rootScope.playingSong.position = Math.floor($scope.player.media.currentTime);
+			$rootScope.playingSong.position = Math.floor($scope.player.currentTime);
 			utils.setValue('CurrentSong', $rootScope.playingSong);
 
 			// Save Queue
@@ -115,12 +159,10 @@ ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, glob
 		$scope.specs = $sce.trustAsHtml(song.specs);
 
 		$scope.player.pause();
+		$log.debug("Loading song at: " + song.url);
 		$scope.player.setSrc(song.url);
 		$scope.player.load();
 
-		$scope.player.media.addEventListener('loadeddata', function(e){
-			$log.debug('loaded and set to: ' + song.position);
-		});
 
 		if (!loadonly) {
 			$scope.player.play();
@@ -161,7 +203,7 @@ ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, glob
 	};
 
 	$scope.playPauseSong = function() {
-		if ($scope.player.media.paused) {
+		if ($scope.player.paused) {
 			$scope.player.play();
 		}
 		else {
@@ -220,48 +262,12 @@ ngSub.controller('PlayerCtrl', function($rootScope, $scope, $window, utils, glob
 		}
 	});
 
-	$scope.player = new MediaElementPlayer('#audiojs', {
-		startVolume: $rootScope.volume,
-		features: [],
-		plugins: ['flash', 'silverlight'],
-		pluginPath: '/js/',
-		AndroidUseNativeControls: true,
-		success: function(mediaElement, domObject){
-			mediaElement.addEventListener('timeupdate', function(e){
-				$('#currentTime').html(secondsToTime(mediaElement.currentTime, true));
-				$('#progress_completed').css("width", function(){
-					return Math.floor($('#progress').width() * (mediaElement.currentTime/$rootScope.playingSong.duration));
-				});
-			});
-			mediaElement.addEventListener('ended', function(event) {
-				if (globals.settings.Repeat) { // Repeat current track if enabled
-					mediaElement.setCurrentTime(0);
-					mediaElement.play();
-				}
-				else {
-					if (!getNextSong()) { // Action if we are at the last song in queue
-						if (globals.settings.LoopQueue) { // Loop to first track in queue if enabled
-							var next = $rootScope.queue[0];
-							$scope.playSong(false, next);
-						}
-						else if (globals.settings.AutoPlay) { // Load more tracks if enabled
-							$rootScope.getRandomSongs('play', '', '');
-							notifications.updateMessage('Auto Play Activated...', true);
-						}
-					}
-					else {
-						$scope.nextTrack();
-					}
-				}
-			});
-		}
-	});
 
 	$scope.seek = function(e){
 		var seek = (e.pageX - $('#progress').position().left);
 		var seek_secs = (seek / $('#progress').width() * $rootScope.playingSong.duration);
 		$log.debug('seek requested: ' + seek_secs);
-		$scope.player.media.setCurrentTime(seek_secs);
+		$scope.player.setCurrentTime(seek_secs);
 	};
 
 	startSaveTrackPosition();

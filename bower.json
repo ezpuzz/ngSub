@@ -1,5 +1,5 @@
 {
-  "name": "ngSub",
+  "name": "ngsub",
   "version": "0.0.1",
   "homepage": "https://github.com/ezpuzz/ngSub",
   "authors": [
@@ -37,52 +37,42 @@
     "angular-vs-repeat": "kamilkp/angular-vs-repeat",
     "bootstrap":  "*",
     "js-cover-flow": "luwes/js-cover-flow",
-    "mediaelementjs": "johndyer/mediaelement",
+    "mediaelement": "4.0.*",
     "font-awesome": "latest"
   },
   "overrides": {
-      "mediaelementjs":
-      {
-	  "main":
-	  [
-	  	"build/mediaelement-and-player.js",
-	  	"build/mediaelementplayer.css",
-	  	"build/flashmediaelement.swf",
-		"build/mejs-skins.css"
-	  ]
-      },
-      "js-cover-flow":
-      {
-	  "main": 
-	  [
-	      "coverflow.js",
-	      "coverflow.css"
-	  ]
-      },
-      "db": {
-	  "main": "build/asyncStorage.max.js"
-      },
-      "jquery.base64.js": {
-	  "main": "jquery.base64.js"
-      },
-      "jquery-dateFormat": {
-	  "main": "dist/jquery-dateFormat.js"
-      },
-      "angular-vs-repeat": {
-	  "main": "angular-vs-repeat.js"
-      },
-      "fancybox": {
-	  "main": [
-	      "source/jquery.fancybox.js",
-	      "source/jquery.fancybox.css"
-	  ]
-      },
-      "font-awesome": {
-	  "main": [
-	      "css/font-awesome.css",
-	      "fonts/"
-	  ]
-      }
+    "js-cover-flow":
+    {
+      "main": 
+      [
+        "coverflow.js",
+        "coverflow.css"
+      ]
+    },
+    "db": {
+      "main": "build/asyncStorage.max.js"
+    },
+    "jquery.base64.js": {
+      "main": "jquery.base64.js"
+    },
+    "jquery-dateFormat": {
+      "main": "dist/jquery-dateFormat.js"
+    },
+    "angular-vs-repeat": {
+      "main": "angular-vs-repeat.js"
+    },
+    "fancybox": {
+      "main": [
+        "source/jquery.fancybox.js",
+        "source/jquery.fancybox.css"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/"
+      ]
+    }
 
   }
 }

@@ -3,6 +3,9 @@ exports.config =
   conventions:
     assets: /^app\/assets\//
 
+  npm:
+    enabled: false
+
   modules:
     definition: false
     wrapper: false
